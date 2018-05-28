@@ -140,7 +140,7 @@ class Dataset():
                 self.prgy = []
 
                 if "Mb" in parts:
-                    self->Mb = 1
+                    self.Mb = 1
                     genStartPos += 1
 
                 self.prgy = parts[genStartPos:]
@@ -210,5 +210,4 @@ class Dataset():
         prgy = (item for item in self.nprgy)
         chromosome = (item for item in self.chromosome)
         return "Dataset(\"{}\", prgy{}, {})".format(
-            self.name, prgy.__repr__(), chromosome.__repr__()
-        )
+            self.name, prgy.__repr__(), chromosome.__repr__())
