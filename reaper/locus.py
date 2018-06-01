@@ -31,7 +31,7 @@ class Locus():
             self.cM = kwargs.get("cM")
 
         if kwargs.get("txtstr", None):
-            self.txtstr = kwatgs.get("txtstr")
+            self.txtstr = kwargs.get("txtstr")
 
         if kwargs.get("dominance", None):
             self.dominance = kwargs.get("dominance")
@@ -41,6 +41,6 @@ class Locus():
         return len(self.genotype)
 
     def __repr__(self):
-        genotype = (item for item in self.genotype)
+        genotype = tuple([item for item in self.genotype])
         return "Locus(\"%s\", %s, cM = %2.2f, chr = %s)" % (
             self.name, genotype.__repr__(), self.cM, self.chr)
