@@ -1,4 +1,5 @@
-from . import Chromosome, Locus
+from .chromosome import Chromosome
+from .locus import Locus
 
 MAX_MARKERNAME_SIZE = 256
 MAX_GENONAME_SIZE = 256
@@ -23,13 +24,9 @@ class Dataset():
 
         if kwargs.get("name", None):
             self.name = kwargs.get("name")
-        else:
-            raise TypeError("reaper: The name attribute value must be a string")
 
-        if kwargs.get("chromosome", None):
+        if kwargs.get("chromosome", None) is not None:
             self.chromosome = kwargs.get("chromosome")
-        else:
-            raise TypeError("reaper: The chromosome attribute value must be a Chromosome list")
 
     @property
     def size(self):
@@ -107,9 +104,9 @@ class Dataset():
         decode = lambda s: s.decode("utf-8")
         all_lines = [decode(line) for line in fp.readlines() if not (
             decode(line)[0] == "#" or decode(line)[0] == "\0")]
-        chr_lines = [line for line in all_lines() if not line[0] == "@"]
+        chr_lines = [line for line in all_lines if not line[0] == "@"]
         tabCount = len(chr_lines[0].split("\t"))
-        if not all(len(items.split("\t")) == tabCount for items in chrlines):
+        if not all(len(items.split("\t")) == tabCount for items in chr_lines):
             raise "reaper: Each line should have the same number of Tabs"
 
         chr_lines2 = [decode(line) for line in fp.readlines() if not (
@@ -159,11 +156,11 @@ class Dataset():
                 
                 parts = list(map(lambda s: s.strip(), line.split("\t")))
                 txtstr = [gen for gen in parts[genStartPos:]]
-                genotypes = [setGenotypeValue(gen) for gen in textstr]
-                dominance = [setDominanceValue(gen) for gen in textstr]
-                Mb = atof(parts[genStartPos-1]) if genStartPos > 3 else 0.0
+                genotypes = [setGenotypeValue(gen) for gen in txtstr]
+                dominance = [setDominanceValue(gen) for gen in txtstr]
+                Mb = float(parts[genStartPos-1]) if genStartPos > 3 else 0.0
                 
-                locus = Locus(name=parts[1], chr=parts[0], cM=atof(parts[2]),
+                locus = Locus(name=parts[1], chr=parts[0], cM=float(parts[2]),
                               Mb=Mb, genotype=genotypes, txtstr=txtstr,
                               dominance=dominance)
 
@@ -207,7 +204,7 @@ class Dataset():
         self.interval = 0
 
     def __repr__(self):
-        prgy = (item for item in self.nprgy)
-        chromosome = (item for item in self.chromosome)
+        prgy = tuple([item for item in self.prgy])
+        chromosome = tuple([item for item in self.chromosome])
         return "Dataset(\"{}\", prgy{}, {})".format(
             self.name, prgy.__repr__(), chromosome.__repr__())
