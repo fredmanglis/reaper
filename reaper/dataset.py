@@ -177,19 +177,19 @@ class Dataset():
         fp.close()
         self.chromosome = list(chromosomes.values())
 
-    def regression(self):
+    def regression(self, **kwargs):
         """regression using input values"""
 	# {"regression", (PyCFunction)Dataset_regression,
 	# METH_KEYWORDS, "regression using input values"},
         pass
 
-    def permutation(self):
+    def permutation(self, **kwargs):
         """Permutation test"""
 	# {"permutation", (PyCFunction)Dataset_permutation,
 	# METH_KEYWORDS, "Permutation test"},
         pass
 
-    def bootstrap(self):
+    def bootstrap(self, **kwargs):
         """Bootstrap test"""
 	# {"bootstrap", (PyCFunction)Dataset_bootstrap,
 	# METH_KEYWORDS, "Bootstrap test"},
