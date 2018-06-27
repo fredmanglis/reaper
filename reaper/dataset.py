@@ -148,7 +148,7 @@ class Dataset():
                     raise SystemError("reaper: Header row is not located")
 
                 setGenotypeValue = lambda g: -1.0 if g == GENOSYMBOL[0] else (
-                    1.0 if g == GENOSYMBOL[1] else (0.0 if g == GENOSYMBOL[2] else g))
+                    1.0 if g == GENOSYMBOL[1] else (0.0 if g == GENOSYMBOL[2] else 99))
                 setDominanceValue = lambda g: 0 if (g == mat and self.dominance == 1) else (
                     0 if (g == pat and self.dominance == 1) else (
                         1 if (g == het and self.dominance == 1) else (
